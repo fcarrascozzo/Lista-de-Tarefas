@@ -15,42 +15,60 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.blue,
       ),
       home: Scaffold(
-          backgroundColor: Color(0xfff4f1e9),
+          backgroundColor: const Color(0xfff4f1e9),
           appBar: AppBar(
-            backgroundColor: Color(0xff2b463c),
-            title: Text('Lista de Tarefas'),
+            backgroundColor: const Color(0xff2b463c),
+            title: const Text('Lista de Tarefas'),
           ),
-          body: Container(
-            child: Stack(
-              children: [
-                Container(
-                  color: Color(0xff688f4e),
-                  height: 140,
-                ),
-                Container(
-                  height: 100,
-                  color: Color(0xfff4f1e9),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        color: Colors.black26,
-                        width: 72,
-                        height: 100,
-                      ),
-                      Text('Primeira Tarefa'),
-                      ElevatedButton(
-                          onPressed: (){},
-                          child: Icon(Icons.add)
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          body: const Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Tarefas('Tarefa 1'),
+              Tarefas('Tarefa 2'),
+              Tarefas('Tarefa 3')
+            ],
           ),
           floatingActionButton: FloatingActionButton(
-              backgroundColor: Color(0xff2b463c), onPressed: () {})),
+              backgroundColor: const Color(0xff2b463c), onPressed: () {})),
+    );
+  }
+}
+
+class Tarefas extends StatelessWidget {
+  final String nomeTarefa;
+  const Tarefas(this.nomeTarefa, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          color: const Color(0xff688f4e),
+          height: 140,
+        ),
+        Container(
+          height: 100,
+          color: const Color(0xfff4f1e9),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                color: Colors.black26,
+                width: 72,
+                height: 100,
+              ),
+              Text(nomeTarefa),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff688f4e)
+                ),
+                  onPressed: (){},
+                  child: const Icon(Icons.add)
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
