@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lista_tarefas/components/tarefas.dart';
+import 'package:flutter_lista_tarefas/screens/tela_nova_tarefa.dart';
 
 class TelaInicial extends StatefulWidget {
   const TelaInicial({super.key});
@@ -74,7 +75,12 @@ class _TelaInicialState extends State<TelaInicial> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xff1D2538),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NovaTarefa()),
+          );
+        },
         child: Icon(Icons.add),
       ),
     );

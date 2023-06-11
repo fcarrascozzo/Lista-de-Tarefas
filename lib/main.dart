@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
       title: 'Lista de Tarefas',
       theme: ThemeData(
         primaryColor: Colors.blue,
+        snackBarTheme: SnackBarThemeData(
+          backgroundColor: Color(0xff1D2538),
+        )
       ),
       home: const TelaInicial()
     );
