@@ -4,5 +4,5 @@ Uma lista de tarefas para facilitar a vida
 
 > Status: Em produção
 
-# Versões do SDK e afins utilizados utlizados
+# Versões do SDK e afins utilizados
 ### presentes no arquivo pubspec.yaml
