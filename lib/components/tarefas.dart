@@ -83,7 +83,13 @@ class _TarefasState extends State<Tarefas> {
                           ),
                           onPressed: () {
                             setState(() {
-                              nivel++;
+                              if (nivel == widget.dificuldadeTarefa * 10) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Você atingiu o nível máximo nesta tarefa')),
+                                );
+                              } else {
+                                nivel++;
+                              }
                             });
                           },
                           child: const Column(

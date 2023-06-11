@@ -75,6 +75,7 @@ class _TelaInicialState extends State<TelaInicial> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xff1D2538),
         onPressed: () {},
+        child: Icon(Icons.add),
       ),
     );
   }
