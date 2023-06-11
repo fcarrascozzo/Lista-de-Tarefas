@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: const Color(0xffE0E1DC),
         appBar: AppBar(
+          leading: Container(),
           backgroundColor: const Color(0xff1D2538),
           title: const Text(
             'Lista de Tarefas',
@@ -26,9 +27,13 @@ class MyApp extends StatelessWidget {
         ),
         body: ListView(
           children: const [
-            Tarefas('Tarefa 1'),
-            Tarefas('Tarefa 2'),
-            Tarefas('Tarefa 3'),
+            Tarefas('Estudar Flutter', 'https://res.cloudinary.com/dnegavcrl/images/f_auto,q_auto/v1678438365/Flutter-Dash-Sticer/Flutter-Dash-Sticer.png?_i=AA'),
+            Tarefas('Aprofundar conhecimento Flutter', 'https://ih1.redbubble.net/image.1076687066.0716/st,small,507x507-pad,600x600,f8f8f8.u2.jpg'),
+            Tarefas('Criar um app', 'https://blog.logrocket.com/wp-content/uploads/2022/05/adaptive-icons-flutter-launcher-icons.png'),
+            Tarefas('Estudar Git', 'https://www.oomnitza.com/wp-content/uploads/2022/06/github-logo-300x300.png'),
+            Tarefas('Estudar JS', 'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png'),
+            Tarefas('Estudar Dart', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwm7JasTw3bd-cgrMyh3LoCdbHtnc0OT50N_TbKqhJHP2Ql7PXMjV083SxSYZd_yDEoZs&usqp=CAU'),
+
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -42,8 +47,9 @@ class MyApp extends StatelessWidget {
 
 class Tarefas extends StatefulWidget {
   final String nomeTarefa;
+  final String fotoTarefa;
 
-  const Tarefas(this.nomeTarefa, {super.key});
+  const Tarefas(this.nomeTarefa, this.fotoTarefa,{super.key});
 
   @override
   State<Tarefas> createState() => _TarefasState();
@@ -73,6 +79,10 @@ class _TarefasState extends State<Tarefas> {
                       color: Colors.black26,
                       width: 72,
                       height: 100,
+                      child: Image.network(
+                          widget.fotoTarefa,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     SizedBox(
                       width: 200,
@@ -85,23 +95,58 @@ class _TarefasState extends State<Tarefas> {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff1D2538),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            nivel++;
-                          });
-                        },
-                        child: const Icon(Icons.add))
+                    Container(
+                      width: 52,
+                      height: 52,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff1D2538),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              nivel++;
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Icon(Icons.add),
+                              Text(
+                                  'UP',
+                                style: TextStyle(
+                                  fontSize: 12
+                                ),
+                              )
+                            ],
+                          )),
+                    )
                   ],
                 ),
               ),
-              Text(
-                'Nível: $nivel',
-                style: TextStyle(color: Color(0xffE0E1DC), fontSize: 16),
-              )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 200,
+                      child: LinearProgressIndicator(
+                        color: Color(0xffE0E1DC),
+                        value: nivel/10,
+                        backgroundColor: const Color(0xff1D2538),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Text(
+                      'Nível: $nivel',
+                      style: TextStyle(color: Color(0xffE0E1DC), fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ],
