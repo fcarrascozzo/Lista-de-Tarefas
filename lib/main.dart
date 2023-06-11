@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isOpacity = true;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +24,16 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: const Color(0xffE0E1DC),
         appBar: AppBar(
-          leading: Container(),
+          leading: Container(
+            child: IconButton(
+                onPressed: (){
+                  setState(() {
+                    isOpacity = !isOpacity;
+                  });
+                },
+                icon: isOpacity ? Icon(Icons.remove_red_eye_outlined) : Icon(Icons.remove_red_eye)
+            ),
+          ),
           backgroundColor: const Color(0xff1D2538),
           title: const Text(
             'Lista de Tarefas',
@@ -25,39 +41,45 @@ class MyApp extends StatelessWidget {
                 color: Color(0xffE0E1DC), fontWeight: FontWeight.bold),
           ),
         ),
-        body: ListView(
-          children: const [
-            Tarefas(
-              'Estudar Flutter',
-              'https://res.cloudinary.com/dnegavcrl/images/f_auto,q_auto/v1678438365/Flutter-Dash-Sticer/Flutter-Dash-Sticer.png?_i=AA',
-              3,
-            ),
-            Tarefas(
-              'Aprofundar conhecimento Flutter',
-              'https://ih1.redbubble.net/image.1076687066.0716/st,small,507x507-pad,600x600,f8f8f8.u2.jpg',
-              5,
-            ),
-            Tarefas(
-              'Criar um app',
-              'https://blog.logrocket.com/wp-content/uploads/2022/05/adaptive-icons-flutter-launcher-icons.png',
-              5,
-            ),
-            Tarefas(
-              'Estudar Git',
-              'https://www.oomnitza.com/wp-content/uploads/2022/06/github-logo-300x300.png',
-              3,
-            ),
-            Tarefas(
-              'Estudar JS',
-              'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png',
-              4,
-            ),
-            Tarefas(
-              'Estudar Dart',
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwm7JasTw3bd-cgrMyh3LoCdbHtnc0OT50N_TbKqhJHP2Ql7PXMjV083SxSYZd_yDEoZs&usqp=CAU',
-              5,
-            ),
-          ],
+        body: AnimatedOpacity(
+          opacity: isOpacity ? 1 : 0,
+          duration: const Duration(
+            milliseconds: 1000
+          ),
+          child: ListView(
+            children: const [
+              Tarefas(
+                'Estudar Flutter',
+                'https://res.cloudinary.com/dnegavcrl/images/f_auto,q_auto/v1678438365/Flutter-Dash-Sticer/Flutter-Dash-Sticer.png?_i=AA',
+                3,
+              ),
+              Tarefas(
+                'Aprofundar conhecimento Flutter',
+                'https://ih1.redbubble.net/image.1076687066.0716/st,small,507x507-pad,600x600,f8f8f8.u2.jpg',
+                5,
+              ),
+              Tarefas(
+                'Criar um app',
+                'https://blog.logrocket.com/wp-content/uploads/2022/05/adaptive-icons-flutter-launcher-icons.png',
+                5,
+              ),
+              Tarefas(
+                'Estudar Git',
+                'https://www.oomnitza.com/wp-content/uploads/2022/06/github-logo-300x300.png',
+                3,
+              ),
+              Tarefas(
+                'Estudar JS',
+                'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png',
+                4,
+              ),
+              Tarefas(
+                'Estudar Dart',
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwm7JasTw3bd-cgrMyh3LoCdbHtnc0OT50N_TbKqhJHP2Ql7PXMjV083SxSYZd_yDEoZs&usqp=CAU',
+                5,
+              ),
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: const Color(0xff1D2538),
@@ -90,24 +112,36 @@ class _TarefasState extends State<Tarefas> {
       child: Stack(
         children: [
           Container(
-            color: const Color(0xff475B74),
+            decoration: BoxDecoration(
+              color: const Color(0xff475B74),
+              borderRadius: BorderRadius.circular(5)
+            ),
             height: 140,
           ),
           Column(
             children: [
               Container(
                 height: 100,
-                color: const Color(0xff7C8DA5),
+                decoration: BoxDecoration(
+                  color: const Color(0xff7C8DA5),
+                  borderRadius: BorderRadius.circular(5)
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      color: Colors.black26,
+                      decoration: BoxDecoration(
+                        color: Colors.black26,
+                        borderRadius: BorderRadius.circular(5)
+                      ),
                       width: 72,
                       height: 100,
-                      child: Image.network(
-                        widget.fotoTarefa,
-                        fit: BoxFit.cover,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Image.network(
+                          widget.fotoTarefa,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Column(
@@ -130,27 +164,27 @@ class _TarefasState extends State<Tarefas> {
                             Icon(
                               Icons.star,
                               size: 15,
-                              color: (widget.dificuldadeTarefa >= 1) ? Color(0xff1D2538) : Color(0xff475B74),
+                              color: (widget.dificuldadeTarefa >= 1) ? const Color(0xff1D2538) : const Color(0xff475B74),
                             ),
                             Icon(
                               Icons.star,
                               size: 15,
-                              color: (widget.dificuldadeTarefa >= 2) ? Color(0xff1D2538) : Color(0xff475B74),
+                              color: (widget.dificuldadeTarefa >= 2) ? const Color(0xff1D2538) : const Color(0xff475B74),
                             ),
                             Icon(
                               Icons.star,
                               size: 15,
-                              color: (widget.dificuldadeTarefa >= 3) ? Color(0xff1D2538) : Color(0xff475B74),
+                              color: (widget.dificuldadeTarefa >= 3) ? const Color(0xff1D2538) : const Color(0xff475B74),
                             ),
                             Icon(
                               Icons.star,
                               size: 15,
-                              color: (widget.dificuldadeTarefa >= 4) ? Color(0xff1D2538) : Color(0xff475B74),
+                              color: (widget.dificuldadeTarefa >= 4) ? const Color(0xff1D2538) : const Color(0xff475B74),
                             ),
                             Icon(
                               Icons.star,
                               size: 15,
-                              color: (widget.dificuldadeTarefa >= 5) ? Color(0xff1D2538) : Color(0xff475B74),
+                              color: (widget.dificuldadeTarefa >= 5) ? const Color(0xff1D2538) : const Color(0xff475B74),
                             ),
                           ],
                         )
@@ -168,7 +202,7 @@ class _TarefasState extends State<Tarefas> {
                               nivel++;
                             });
                           },
-                          child: Column(
+                          child: const Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
@@ -191,7 +225,7 @@ class _TarefasState extends State<Tarefas> {
                     child: SizedBox(
                       width: 200,
                       child: LinearProgressIndicator(
-                        color: Color(0xffE0E1DC),
+                        color: const Color(0xffE0E1DC),
                         value: (widget.dificuldadeTarefa > 0) ? (nivel / widget.dificuldadeTarefa) / 10 : 1,
                         backgroundColor: const Color(0xff1D2538),
                       ),
@@ -201,7 +235,7 @@ class _TarefasState extends State<Tarefas> {
                     padding: const EdgeInsets.all(12),
                     child: Text(
                       'Nível: $nivel',
-                      style: TextStyle(color: Color(0xffE0E1DC), fontSize: 16),
+                      style: const TextStyle(color: Color(0xffE0E1DC), fontSize: 16),
                     ),
                   ),
                 ],
