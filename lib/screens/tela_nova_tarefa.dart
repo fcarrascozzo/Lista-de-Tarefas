@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lista_tarefas/data/informacoes_tarefas.dart';
 
 class NovaTarefa extends StatefulWidget {
-  const NovaTarefa({super.key});
+  const NovaTarefa({super.key, required this.tarefaContext});
 
+  final BuildContext tarefaContext;
   @override
   State<NovaTarefa> createState() => _NovaTarefaState();
 }
@@ -138,13 +140,18 @@ class _NovaTarefaState extends State<NovaTarefa> {
                   ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
+
+                          InformacaoTarefa.of(widget.tarefaContext).novaTarefa(nomeController.text, fotoController.text, int.parse(dificuldadeController.text));
+
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
-                                'Salvando nova tarefa',
+                                'Salvando e criando nova tarefa',
                               ),
                             ),
                           );
+
+                          Navigator.pop(context);
                         }
                       },
                       child: Text('Adicionar'))

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lista_tarefas/components/tarefas.dart';
+import 'package:flutter_lista_tarefas/data/informacoes_tarefas.dart';
 import 'package:flutter_lista_tarefas/screens/tela_nova_tarefa.dart';
 
 class TelaInicial extends StatefulWidget {
@@ -36,41 +37,7 @@ class _TelaInicialState extends State<TelaInicial> {
         opacity: isOpacity ? 1 : 0,
         duration: const Duration(milliseconds: 1000),
         child: ListView(
-          children: const [
-            Tarefas(
-              'Estudar Flutter',
-              'assets/images/imagem1.jpg',
-              3,
-            ),
-            Tarefas(
-              'Aprofundar conhecimento Flutter',
-              'assets/images/imagem.jpg',
-              5,
-            ),
-            Tarefas(
-              'Criar um app',
-              'assets/images/imagem2.jpg',
-              5,
-            ),
-            Tarefas(
-              'Estudar Git',
-              'assets/images/imagem6.png',
-              3,
-            ),
-            Tarefas(
-              'Estudar JS',
-              'assets/images/imagem4.jpg',
-              4,
-            ),
-            Tarefas(
-              'Estudar Dart',
-              'assets/images/imagem5.jpg',
-              5,
-            ),
-            SizedBox(
-              height: 70,
-            )
-          ],
+          children: InformacaoTarefa.of(context).listaTarefas
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -78,7 +45,7 @@ class _TelaInicialState extends State<TelaInicial> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => NovaTarefa()),
+            MaterialPageRoute(builder: (contextNew) => NovaTarefa(tarefaContext: context,)),
           );
         },
         child: Icon(Icons.add),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lista_tarefas/data/informacoes_tarefas.dart';
 import 'package:flutter_lista_tarefas/screens/tela_inicial.dart';
 
 void main() {
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
           backgroundColor: Color(0xff1D2538),
         )
       ),
-      home: const TelaInicial()
+      home: InformacaoTarefa(
+          child: const TelaInicial())
     );
   }
 }
