@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Lista de Tarefas',
       theme: ThemeData(
-        primaryColor: Color(0xff1D2538),
-        snackBarTheme: SnackBarThemeData(
+        primaryColor: const Color(0xff1D2538),
+        snackBarTheme: const SnackBarThemeData(
           backgroundColor: Color(0xff1D2538),
         )
       ),

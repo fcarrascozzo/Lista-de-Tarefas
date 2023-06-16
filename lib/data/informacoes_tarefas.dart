@@ -52,7 +52,7 @@ class InformacaoTarefa extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(InformacaoTarefa old) {
-    return old.listaTarefas.length != listaTarefas.length;
+  bool updateShouldNotify(InformacaoTarefa oldWidget) {
+    return oldWidget.listaTarefas.length != listaTarefas.length;
   }
 }

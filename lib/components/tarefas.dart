@@ -7,15 +7,24 @@ class Tarefas extends StatefulWidget {
   final String fotoTarefa;
   final int dificuldadeTarefa;
 
-  const Tarefas(this.nomeTarefa, this.fotoTarefa, this.dificuldadeTarefa,
+  Tarefas(this.nomeTarefa, this.fotoTarefa, this.dificuldadeTarefa,
       {super.key});
+
+  int nivel = 0;
 
   @override
   State<Tarefas> createState() => _TarefasState();
 }
 
 class _TarefasState extends State<Tarefas> {
-  int nivel = 0;
+
+
+  bool assetOuNetwork() {
+    if (widget.fotoTarefa.contains('http')) {
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +57,15 @@ class _TarefasState extends State<Tarefas> {
                       height: 100,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
-                        child: Image.asset(
-                          widget.fotoTarefa,
-                          fit: BoxFit.cover,
-                        ),
+                        child: assetOuNetwork()
+                            ? Image.asset(
+                                widget.fotoTarefa,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.network(
+                                widget.fotoTarefa,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                     Column(
@@ -83,16 +97,15 @@ class _TarefasState extends State<Tarefas> {
                           ),
                           onPressed: () {
                             setState(() {
-                              if (nivel == widget.dificuldadeTarefa * 10) {
+                              if (widget.nivel == widget.dificuldadeTarefa * 10) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content: Text(
-                                          'Você atingiu o nível máximo nesta tarefa'
-                                      ),
+                                  const SnackBar(
+                                    content: Text(
+                                        'Você atingiu o nível máximo nesta tarefa'),
                                   ),
                                 );
                               } else {
-                                nivel++;
+                                widget.nivel++;
                               }
                             });
                           },
@@ -121,7 +134,7 @@ class _TarefasState extends State<Tarefas> {
                       child: LinearProgressIndicator(
                         color: const Color(0xffE0E1DC),
                         value: (widget.dificuldadeTarefa > 0)
-                            ? (nivel / widget.dificuldadeTarefa) / 10
+                            ? (widget.nivel / widget.dificuldadeTarefa) / 10
                             : 1,
                         backgroundColor: const Color(0xff1D2538),
                       ),
@@ -130,7 +143,7 @@ class _TarefasState extends State<Tarefas> {
                   Padding(
                     padding: const EdgeInsets.all(12),
                     child: Text(
-                      'Nível: $nivel',
+                      'Nível: ${widget.nivel}',
                       style: const TextStyle(
                           color: Color(0xffE0E1DC), fontSize: 16),
                     ),

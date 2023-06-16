@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lista_tarefas/components/tarefas.dart';
 import 'package:flutter_lista_tarefas/data/informacoes_tarefas.dart';
 import 'package:flutter_lista_tarefas/screens/tela_nova_tarefa.dart';
 
@@ -37,7 +36,8 @@ class _TelaInicialState extends State<TelaInicial> {
         opacity: isOpacity ? 1 : 0,
         duration: const Duration(milliseconds: 1000),
         child: ListView(
-          children: InformacaoTarefa.of(context).listaTarefas
+          padding: const EdgeInsets.only(top: 10, bottom: 80),
+          children: InformacaoTarefa.of(context).listaTarefas,
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -48,7 +48,7 @@ class _TelaInicialState extends State<TelaInicial> {
             MaterialPageRoute(builder: (contextNew) => NovaTarefa(tarefaContext: context,)),
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
